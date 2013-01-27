@@ -95,3 +95,28 @@ describe "invoking alzheimer.remember", ->
         f.should.have.been.calledTwice # in total
       it "returns the original function's value for (2, 1)", ->
         result.should.equal 3
+
+  describe "with a function throwing an error", ->
+    error = new Error "error"
+    f = sinon.stub().throws error
+    remembered = remember f
+    it "returns a function", ->
+      remembered.should.be.a "function"
+    describe "the returned function's first invocation", ->
+      try
+        result = remembered()
+      catch e
+        caught = e
+      it "calls the original function on the first invocation", ->
+        f.should.have.been.called
+      it "throws the original function's error", ->
+        caught.should.equal error
+    describe "the returned function's second invocation", ->
+      try
+        result = remembered()
+      catch e
+        caught = e
+      it "does not call the original function on the second invocation", ->
+        f.should.have.been.calledOnce
+      it "throws the original function's error", ->
+        caught.should.equal error
