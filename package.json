@@ -1,0 +1,32 @@
+{
+  "name": "alzheimer",
+  "version": "0.1.0",
+  "description": "Advanced memoization with promise and stream support",
+  "author": "Ruben Verborgh <ruben.verborgh@gmail.com>",
+  "license": "MIT",
+  "keywords": [
+    "memoize",
+    "cache"
+  ],
+  "main": "lib/alzheimer.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/RubenVerborgh/Alzheimer.git"
+  },
+  "bugs": {
+    "url": "https://github.com/RubenVerborgh/Alzheimer/issues"
+  },
+  "scripts": {
+    "hint": "./node_modules/jshint/bin/hint lib",
+    "test": "./node_modules/mocha/bin/mocha"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "chai": "1.4.x",
+    "coffee-script": "1.4.x",
+    "jshint": "0.9.x",
+    "mocha": "1.7.x",
+    "sinon-chai": "2.3.x"
+  }
+}
