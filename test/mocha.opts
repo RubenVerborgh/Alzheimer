@@ -1,3 +1,4 @@
 --compilers coffee:coffee-script
 --reporter spec
 --require test/lib/setup
+--require test/lib/util
