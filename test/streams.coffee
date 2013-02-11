@@ -5,8 +5,12 @@ describe "invoking alzheimer.remember", ->
   remember = alzheimer.remember
 
   describe "with a function returning a stream", ->
-    f = sinon.spy fs.createReadStream
+    f = sinon.spy (filename, options) ->
+      stream = fs.createReadStream filename, options
+      stream.dummy = 1
+      stream
     remembered = remember f
+
     it "returns a function", ->
       remembered.should.be.a "function"
 
@@ -39,9 +43,15 @@ describe "invoking alzheimer.remember", ->
         result.should.equal expected
       it "returns a stream with the same encoding as the original", ->
         resultStream._decoder.encoding.should.equal "ascii"
+      it "returns a stream with the same properties as the original", ->
+        resultStream.should.have.property "dummy", 1
 
   describe "with a function returning an erroneous stream", ->
-    f = sinon.spy createErrorStream
+    f = sinon.spy (error) ->
+      stream = createErrorStream(error)
+      stream.dummy = 1
+      stream
+
     remembered = remember f
     it "returns a function", ->
       remembered.should.be.a "function"
@@ -64,6 +74,7 @@ describe "invoking alzheimer.remember", ->
           error = err
           result = contents
           done()
+
       it "does not call the original function on the second invocation", ->
         f.should.have.been.calledOnce
       it "does not return a value", ->
@@ -72,3 +83,5 @@ describe "invoking alzheimer.remember", ->
         resultStream.should.not.equal f.returnValues[0]
       it "returns a stream with the same error as the original", ->
         error.should.equal "nonexistent"
+      it "returns a stream with the same properties as the original", ->
+        resultStream.should.have.property "dummy", 1
