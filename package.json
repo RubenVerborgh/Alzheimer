@@ -1,6 +1,6 @@
 {
   "name": "alzheimer",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Advanced memoization with promise and stream support",
   "author": "Ruben Verborgh <ruben.verborgh@gmail.com>",
   "license": "MIT",
